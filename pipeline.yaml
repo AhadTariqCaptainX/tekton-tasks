@@ -1,0 +1,19 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: guestbook-pipeline
+spec:
+  tasks:
+    - name: npminstall
+      taskRef:
+        name: npm-task
+    - name: run-tests
+      taskRef:
+        name: jasmine-task
+      runAfter:
+        - npminstall
+    - name: build-image
+      taskRef:
+        name: build-task
+      runAfter:
+        - run-tests
