@@ -1,0 +1,26 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: npm-task
+spec:
+  steps:
+    - name: install-dependencies
+      image: node:20
+      script: |
+        #!/bin/sh
+        echo "Installing npm dependencies..."
+        npm install
+
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: jasmine-task
+spec:
+  steps:
+    - name: run-tests
+      image: node:20
+      script: |
+        #!/bin/sh
+        echo "Running Jasmine tests..."
+        npx jasmine
