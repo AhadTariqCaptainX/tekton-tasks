@@ -1,0 +1,14 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: guestbook-pipelinerun
+spec:
+  pipelineRef:
+    name: guestbook-pipeline
+  params:
+    - name: IMAGE_NAME
+      value: us.icr.io/<your-namespace>/tax-calculator:latest
+  workspaces:
+    - name: source
+      persistentVolumeClaim:
+        claimName: workspace-pvc
